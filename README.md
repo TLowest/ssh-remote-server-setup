@@ -22,7 +22,7 @@ This project demonstrates how to provision a remote Linux server on AWS, configu
 # install latest available version of packages & installs the OpenSSH server 
 sudo apt update && sudo apt install openssh-server 
 # start SSH service immediately & ensure SSH starts automatically on boot
-sudo sysstemctl start ssh && sudo systemctl enable ssh
+sudo systemctl start ssh && sudo systemctl enable ssh
 ```
 ### Configure Firewall (UFW)
 If it is not installed yet, install latest available version of packages & install UFW.
