@@ -1,6 +1,6 @@
 # SSH Remote Server Setup
 
-This project demostrates how to provision a remote Linux server on AWS, configure secure SSH access using two distinct locally generated key pairs, and optionally enhance server security with tools like Fail2Ban. It is designed to build foundational skills in Linux server setup, SSH key management, and remote access hardening.
+This project demonstrates how to provision a remote Linux server on AWS, configure secure SSH access using two distinct locally generated key pairs, and optionally enhance server security with tools like Fail2Ban. It is designed to build foundational skills in Linux server setup, SSH key management, and remote access hardening.
 
 ---
 ## Project Overview
@@ -12,35 +12,35 @@ This project demostrates how to provision a remote Linux server on AWS, configur
   - SSH Configuration with Two Key Pairs
   - Server Provisioning and Firewall Configuration
   - SSH Aliasing for Simplified Access
-  - Brut-Force Protection with Fail2Ban
+  - Brute-Force Protection with Fail2Ban
 
 ---
 ## Local Machine Configurations (Client)
-> Before connecting to the remote server, ensure local Linux machine is properly configured. 
+> Before connecting to the remote server, ensure the local Linux machine is properly configured. 
 ### Install & Enable SSH (*if not already*)
 ```bash
-# install latest avaialble version of packages & installs the OpenSSH server 
+# install latest available version of packages & installs the OpenSSH server 
 sudo apt update && sudo apt install openssh-server 
-# start SSH service immediately & ensure SSH starts autmoatically on boot
+# start SSH service immediately & ensure SSH starts automatically on boot
 sudo sysstemctl start ssh && sudo systemctl enable ssh
 ```
 ### Configure Firewall (UFW)
-If not already installed, install latest avaialble version of packages & install UFW.
+If it is not installed yet, install latest available version of packages & install UFW.
 ```bash
 sudo apt update && sudo apt install ufw
 ```
-Ensure baseline behavior of your firewall, by denying all unsolicited incoming traffic by default and allow all outgoing traffic.
+Ensure baseline behavior of your firewall, by denying all unsolicited incoming traffic by default and allowing all outgoing traffic.
 Together, this setup implements a default-deny posture, which is a core principle of network security.
 ```bash
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 ```
-Allow SSH & Enable UFW
+Allow SSH & Enable UFW.
 ```bash
 sudo ufw allow ssh
 sudo ufw enable
 ```
-This guarentees that only allowed services (life SSH) are reachable - while everything else remains secure and closed on your local machine.
+This guarantees that only allowed services (life SSH) are reachable - while everything else remains secure and closed on your local machine.
 
 ### Optional: Enable Logging & Check Status
 <details> 
@@ -87,7 +87,7 @@ On the local machine, copy each (`.pub`) key and append them to the remote serve
 mkdir -p ~/.ssh    # create directory if it does not exist
 nano ~/.ssh/authorized_keys    # paste both keys on sepearate lines
 ```
-Then, set proper file permissions
+Then, set proper file permissions.
 ```bash
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
@@ -127,7 +127,7 @@ Create local config:
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 ```
 Edit `/etc/fail2ban/jail.local`:
-- Apply global settings
+- Apply global settings:
 ```ini
 [DEFAULT] 
 # duration an IP is banned 
@@ -145,7 +145,7 @@ destemail = <Your_Email_Address>
 # ignore your own IP address
 ignoreip = <Your_IP_Address>
 ```
-- Configure SSH service
+- Configure SSH service:
 ```ini
 [sshd]
 enabled = true
